@@ -1,0 +1,87 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            height: 100vh;
+            background: url(./image/生命周期钩子.png) no-repeat center/cover; 
+            background-size: 100% ; 
+            font-family: 'Open Sans' sans-serif;
+        }
+        .mrd{
+            background-color: rgba(0, 0, 0,0.7);
+            width: 100%;
+            height: 100%;
+        }
+        .mrd h1 {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            -webkit-text-stroke: 1px #fff;
+            color: transparent;
+            background: url(./image/生命周期钩子.png) no-repeat center/cover;   
+            font-size: 12vw;
+            background-clip: text;
+            -webkit-background-clip: text;
+        }
+    </style>
+</head>
+<body>
+    <div class="mrd">
+        <h1>test</h1>
+    </div>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+        .a{
+            width: 100%;
+            height: 100%;
+            background-color: pink;
+
+        }
+        .b{
+            margin: 0 auto;
+            width: 200px;
+            height: 200px;
+            border-radius: 100px;
+            background-color: #fff;
+        }
+        .b::after{
+            position: absolute;
+            left: 200px;
+            content: "";
+            margin: 0 auto;
+            width: 200px;
+            height: 200px;
+            border-radius: 100px;
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="a">
+        <div class="b"></div>
+    </div>
+    <img src="" alt="">
+    <button>1</button>
+</body>
+</html>
