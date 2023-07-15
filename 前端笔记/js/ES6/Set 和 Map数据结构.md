@@ -350,3 +350,31 @@
 # FinalizationRegistry
 
 > ES2021 引入了清理器注册表功能 FinalizationRegistry，用来指定目标对象被垃圾回收机制清除以后，所要执行的回调函数
+
+# 总结
+
+> 为什么 WeakMap 的键只能用对象
+
+weakMap 是弱引用，当键没有被引用时，weakMap 对应的键值对就会被垃圾回收。如果是原始值，其他地方引用时就是直接复制值而不是引用，当其他地方没有引用时，如果是原始值的话，在 weakMap GC 无法判断键是否没被引用
+
+> 在 Set 中，修改 set 的元素，如果修改的元素是原始值是不会变得。修改的值是对象的属性的话，对象还是会存在 set 中
+
+    let s = new Set([['val']])
+    //原始值
+    for(let value of s.values()){
+      value = 'newvalue'
+      console.log(value) // newvalue
+      s.has('val') // true
+    }
+
+    //对象属性
+
+    const obj = { name:'cctv'}
+
+    let s1 = new Set([obj])
+
+    for(let value of s1.values()){
+      value.name = 'sn'
+      console.log(value) // name: 'sn'
+      s.has(obj) //true
+    }

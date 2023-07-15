@@ -1,27 +1,16 @@
-var reverse = function(x) {
-    console.log(x)
-    let ans = 0
-    if( x == undefined || x== 0){
-        return 0
+var maxArea = function(height) {
+    if( height.length == 2){
+        return Math.min(height[1],height[0])*1
     }
-    let str = x.toString()
-        console.log(typeof str)
-
-    if( x < 0 ){
-        let res = str.slice(1).split('').reverse().join('')
-        ans = Number(res)
-    }else{
-        let res = str.split('').reverse().join('')
-        ans = Number(res)
+    let L = 0
+    let R = height.length -1 
+    let res = 0
+    while( L<= R){
+        let m = Math.min(height[L],height[R]) * (R - L)
+        res = Math.max(res,m)
+        if( height[L] <= height[R]) {L++;continue}
+        if( height[L] > height[R]) {R--;continue}
     }
-        console.log(ans)
-    function compare () {
-        if( x < 0) ans  = Number('-'+ans)
-        if( ans > Number(2**31) -1 && ans < -Number(2**31)) return 0
-             console.log( "ans" + ans)
-        return ans
-    }
-    return compare()
-
+    return res
 };
-console.log(reverse(-1))
+console.log(maxArea([1,8,6,2,5,4,8,3,7]))
