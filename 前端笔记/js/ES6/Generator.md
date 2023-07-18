@@ -16,7 +16,7 @@
 
     Generator 函数helloWorldGenerator，它内部有两个yield表达式（hello和world），即该函数有三个状态：hello，world 和 return 语句（结束执行）。
 
-> Generator 函数的调用方法与普通函数一样，也是在函数名后面加上一对圆括号。不同的是，调用 Generator 函数后，该函数并不执行，返回的也不是函数运行结果，而是一个指向内部状态的指针对象，也就是上一章介绍的遍历器对象（Iterator Object）。
+> Generator 函数的调用方法与普通函数一样，也是在函数名后面加上一对圆括号。不同的是，调用 Generator 函数后，该函数并不执行，返回的也不是函数运行结果，而是一个指向内部状态的指针对象，也就是遍历器对象（Iterator Object）。
 
 > 必须调用遍历器对象的 next 方法，使得指针移向下一个状态。也就是说，每次调用 next 方法，内部指针就从函数头部或上一次停下来的地方开始执行，直到遇到下一个 yield 表达式（或 return 语句）为止。换言之，Generator 函数是分段执行的，yield 表达式是暂停执行的标记，而 next 方法可以恢复执行。
 
@@ -127,13 +127,13 @@
 
 # next 方法参数
 
-> yield 表达式本身没有返回值，或者说总返回一个 undefined，next 方法可以携带一个参数，改参数会被当做上一个 yield 表达式的返回值
+> yield 表达式本身没有返回值，或者说总返回一个 undefined，next 方法可以携带一个参数，该参数会被当做上一个 yield 表达式的返回值
 
         function* f() {
-        for(var i = 0; true; i++) {
-            var reset = yield i;
-            if(reset) { i = -1; }
-        }
+          for(var i = 0; true; i++) {
+             var reset = yield i;
+             if(reset) { i = -1; }
+          }
         }
 
         var g = f();
@@ -801,3 +801,8 @@ g.next() // { value: undefined, done: true }
 
 3. 作为数据结构
    > Generator 可以看作是数据结构，更确切地说，可以看作是一个数组结构，因为 Generator 函数可以返回一系列的值，这意味着它可以对任意表达式，提供类似数组的接口。
+
+# <a name='总结'>总结</a>
+
+> generactor 不能使用箭头函数定义
+> 生成器函数内部执行流程会针对每个生成器对象区分作用域，在每个生成器对象上调用 next()不会影响其他生成器

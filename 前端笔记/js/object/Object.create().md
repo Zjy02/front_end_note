@@ -1,10 +1,15 @@
 # Object.create
 
 > 以现有的对象作为原型，创建一个新的对象
+
 > Object.create(proto,propertiesObject)
+
 > proto 为新对象的原型对象
+
 > propertiesObject 可选
+
 > 第二个参数将键映射到属性描述符，这意味着你还可以控制每个属性的可枚举性、可配置性等
+
 > 对象初始化语法是 Object.create() 的一种语法糖
 
     如果该参数被指定且不为 undefined，则该传入对象可枚举的自有属性将为新创建的对象添加具有对应属性名称的属性描述符。这些属性对应于 Object.defineProperties() 的第二个参数。

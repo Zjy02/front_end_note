@@ -46,42 +46,59 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        body{
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-        }
-        .a{
-            width: 100%;
-            height: 100%;
-            background-color: pink;
 
-        }
-        .b{
-            margin: 0 auto;
-            width: 200px;
-            height: 200px;
-            border-radius: 100px;
-            background-color: #fff;
-        }
-        .b::after{
-            position: absolute;
-            left: 200px;
-            content: "";
-            margin: 0 auto;
-            width: 200px;
-            height: 200px;
-            border-radius: 100px;
-            background-color: #fff;
-        }
-    </style>
 </head>
 <body>
-    <div class="a">
-        <div class="b"></div>
-    </div>
-    <img src="" alt="">
-    <button>1</button>
+    <div id="div" style="width: 200px; height: 200px; background-color: red; margin: 0 auto;"></div>
+    <div id="div1" style="width: 200px; height: 200px; background-color: green; margin: 0 auto;"></div>
+
+    <script>
+        let div = document.querySelector('#div')
+        div.onmouseover = debounce(()=>{
+            console.log('on')
+        },2000)
+
+
+        let div1 = document.querySelector('#div1')
+        div1.onmouseover = throttle(()=>{
+            console.log('111')
+        },1000)
+        // function debounce(event,time){
+        //     let timer = null
+        //     return function (...args) {
+        //         clearInterval(timer)
+        //         timer = setTimeout(() => {
+        //             event.apply(this,args)
+        //         }, time);
+        //     }
+        // }
+
+        function debounce (event,time,flag){
+            let timer = null
+            return function(...args){
+                clearInterval(timer)
+                if(flag && !timer){
+                    event.apply(this,args)
+                    timer = 1
+                }else{
+                    timer = setTimeout(() => {
+                        event.apply(this, args)
+                    }, time)
+                }
+                
+            }
+        }
+        function throttle(event, time) {
+                let timer = null
+                return function (...args) {
+                    if (!timer) {
+                        timer = setTimeout(() => {
+                            timer = null
+                            event.apply(this, args)
+                        }, time);
+                    }
+                }
+            }
+    </script>
 </body>
 </html>

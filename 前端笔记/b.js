@@ -26,7 +26,7 @@ class Mypromise {
         }
         
     }
-
+ 
 #changestate(state,result){
     if(this.#state !== PENDING) return
             this.#state = state
