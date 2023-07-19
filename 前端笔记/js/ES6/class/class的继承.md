@@ -3,6 +3,8 @@
 3. <a href='#Object.getPrototypeOf()'>Object.getPrototypeOf()</a>
 4. <a href='#super关键字'>super 关键字</a>
 5. <a href='#类的 prototype 属性和__proto__属性'>类的 prototype 属性和**proto**属性</a>
+6. <a href='#原生构造函数的继承'>原生构造函数的继承</a>
+7. <a href='#Mixin 模式实现'>Mixin 模式实现</a>
 
 # class 的继承
 
@@ -264,3 +266,126 @@
 > super.valueOf()表明 super 是一个对象，因此就不会报错。同时，由于 super 使得 this 指向 B 的实例，所以 super.valueOf()返回的是一个 B 的实例。
 
 ## <a name='类的 prototype 属性和__proto__属性'>类的 prototype 属性和**proto**属性</a>
+
+> 每一个对象都有**proto**属性，指向对应的构造函数的 prototype 属性。Class 作为构造函数的语法糖，同时有 prototype 属性和**proto**属性，因此同时存在两条继承链。
+
+> 子类的**proto**属性，表示构造函数的继承，总是指向父类。
+
+> 子类 prototype 属性的**proto**属性，表示方法的继承，总是指向父类的 prototype 属性
+
+        class A {
+        }
+
+        class B extends A {
+        }
+
+        B.__proto__ === A // true
+        B.prototype.__proto__ === A.prototype // true
+
+        //相当于
+        // B 的实例继承 A 的实例
+        Object.setPrototypeOf(B.prototype, A.prototype);
+
+        // B 继承 A 的静态属性
+        Object.setPrototypeOf(B, A);
+
+        const b = new B();
+
+> Object.setPrototypeOf 方法的实现。
+
+        Object.setPrototypeOf = function (obj, proto) {
+            obj.__proto__ = proto;
+            return obj;
+        }
+
+
+        class B extends A{}
+
+> 只要是一个有 prototype 属性的函数，就能被 B 继承。由于函数都有 prototype 属性（除了 Function.prototype 函数），因此 A 可以是任意函数
+
+    class A {
+    }
+
+    A.__proto__ === Function.prototype // true
+    A.prototype.__proto__ === Object.prototype // true
+
+> A 作为一个基类（即不存在任何继承），就是一个普通函数，所以直接继承 Function.prototype。但是，A 调用后返回一个空对象（即 Object 实例），所以 A.prototype.**proto**指向构造函数（Object）的 prototype 属性。
+
+- 实例的 **proto** 属性
+
+> 子类实例的**proto**属性的**proto**属性，指向父类实例的**proto**属性。也就是说，子类的原型的原型，是父类的原型
+
+## <a name='原生构造函数的继承'>原生构造函数的继承</a>
+
+> 原生构造函数是指语言内置的构造函数，通常用来生成数据结构。ECMAScript 的原生构造函数大致有下面这些。
+
+1. Boolean()
+2. Number()
+3. String()
+4. Array()
+5. Date()
+6. Function()
+7. RegExp()
+8. Error()
+9. Object()
+
+> 以前，这些原生构造函数是无法继承的，比如，不能自己定义一个 Array 的子类。
+
+> ES6 允许继承原生构造函数定义子类，因为 ES6 是先新建父类的实例对象 this，然后再用子类的构造函数修饰 this，使得父类的所有行为都可以继承。下面是一个继承 Array 的例子。
+
+        class VersionedArray extends Array {
+            constructor() {
+                super();
+                this.history = [[]];
+            }
+            commit() {
+                this.history.push(this.slice());
+            }
+            revert() {
+                this.splice(0, this.length, ...this.history[this.history.length - 1]);
+            }
+        }
+
+            var x = new VersionedArray();
+
+            x.push(1);
+            x.push(2);
+            x // [1, 2]
+            x.history // [[]]
+
+            x.commit();
+            x.history // [[], [1, 2]]
+
+            x.push(3);
+            x // [1, 2, 3]
+            x.history // [[], [1, 2]]
+
+            x.revert();
+            x // [1, 2]
+
+> VersionedArray 会通过 commit 方法，将自己的当前状态生成一个版本快照，存入 history 属性。revert 方法用来将数组重置为最新一次保存的版本。除此之外，VersionedArray 依然是一个普通数组，所有原生的数组方法都可以在它上面调用。
+
+    class NewObj extends Object{
+        constructor(){
+            super(...arguments);
+        }
+    }
+
+    var o = new NewObj({attr: true});
+    o.attr === true  // false
+
+> 继承 Object 的子类，有一个行为差异。
+
+> NewObj 继承了 Object，但是无法通过 super 方法向父类 Object 传参。这是因为 ES6 改变了 Object 构造函数的行为，一旦发现 Object 方法不是通过 new Object()这种形式调用，ES6 规定 Object 构造函数会忽略参数。
+
+## <a name='Mixin 模式实现'>Mixin 模式实现</a>
+
+> Mixin 指的是多个对象合成一个新的对象，新对象具有各个组成成员的接口。它的最简单实现如下
+
+    const a = {
+        a: 'a'
+    };
+    const b = {
+        b: 'b'
+    };
+    const c = {...a, ...b}; // {a: 'a', b: 'b'}
