@@ -35,6 +35,7 @@
 # Object.getOwnPropertyDescriptor()
 
 > Object.getOwnPropertyDescriptor() 静态方法返回一个对象，该对象描述给定对象上特定属性（即直接存在于对象上而不在对象的原型链中的属性）的配置。返回的对象是可变的，但对其进行更改不会影响原始属性的配置。
+> Object.getOwnPropertyDescriptors()将所有的属性描述符放在新对象中返回
 
 > 如果指定的属性存在于对象上，则返回其属性描述符，否则返回 undefined。
 
