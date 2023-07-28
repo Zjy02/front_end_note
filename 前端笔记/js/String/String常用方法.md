@@ -34,8 +34,10 @@
 > str.charCodeAt(x)返回字符串中的 x 位置的 Unicode
 
     var message="jquery4u"
-    alert(message.charCodeAt(1)
+    alert(message.charCodeAt(1))
     //113
+    'z'.charCodeAt()
+    //122
 
 ### concat()
 
