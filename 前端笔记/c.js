@@ -1,16 +1,18 @@
-class app {
-    constructor(){
-        this.name = "lihua"
-        this.sex = "man"
-    }
-    get a(){
-        console.log("get")
-        return "name"+ this.name
+function a(){
+    try {
+        throw new Error('cuo')
+    } catch (error) {
+        console.log(error);
     }
 }
 
-let a = new app()
+function b(){
+    try {
+        a()
+    } catch (error) {
+        console.log("b()");
+        console.log(error);
+    }
+}
 
-let b = a.a
-
-console.log(b) 
+b()

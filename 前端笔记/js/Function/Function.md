@@ -96,3 +96,70 @@
             //[Arguments] { '0': 20, '1': 10 }
 
 > 在严格模式下，给 arguments 赋值，不会改变 num 的值，num 还是调用时传来的值，如果重新 arguments 会报错
+
+> 箭头函数没有 arguments 对象，只能通过命名参数访问
+
+## 默认参数
+
+> arguments 不会反映参数的默认值
+> function a (name='tom'){
+
+    console.log(arguments[0]) // undefined
+
+}
+
+> 参数的默认值不限于原始值和对象类型，还可以使用函数返回值
+
+    function num(){
+        return 'tom'
+    }
+
+    function a( name='lihau',friends= num()){
+
+    }
+
+> 函数的默认参数只有在被调用且没有传递对应参数时，才会对默认参数求值
+> 箭头函数也可以使用这样的使用默认参数
+
+        (name='lihua')=>{
+
+        }
+
+> 默认参数作用域和暂时性死域
+
+    function a(name='tom', job='java'){}
+    //相当于
+    function a(){
+        let name='tom'
+        let job ='java'
+    }
+
+
+    function a ( num=10, j0bNum=num+10){
+
+    }
+    a() //jobNum => 20
+
+> 参数会按照定义他们的顺序去初始化，前面的参数不能使用后面没有定义参数
+> 参数也存在自己的作用域，参数不能引用函数体的作用域
+
+## 收集参数
+
+> 在函数定义时，使用扩展运算符把独立的参数组合成一个数组，类似 arguments 的构造机制，但是收集参数
+> 是数组的一个实例
+
+    function a(...value){
+        return value.reduce((prev,item)=> prev + item,0)
+    }
+
+    //剩余参数
+
+    //...value只能为最后一个参数
+    //不能写成(...value,first)
+
+    function a(first, ...value){
+        //value接受除了第一个参数的其他所有参数
+        return value
+    }
+
+> 使用收集参数不影响 arguments
