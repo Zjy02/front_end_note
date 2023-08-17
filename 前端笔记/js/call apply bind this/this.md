@@ -168,3 +168,7 @@
 5. 绑定优先级
 
 > new 绑定 > 显式绑定 > 隐式绑定 > 默认绑定
+
+### 其他
+
+> 在 setTimeout Promise 中的回调函数中的this 在执行的时候指向 全局(window global undefined)
