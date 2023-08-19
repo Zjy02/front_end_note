@@ -1,18 +1,23 @@
-function a(){
-    try {
-        throw new Error('cuo')
-    } catch (error) {
-        console.log(error);
-    }
-}
+// let user = {
+//   name: 'key',
+//   say: function (params) {
+//     console.log(this.name + ' ' + params)
+//   }
+// }
 
-function b(){
-    try {
-        a()
-    } catch (error) {
-        console.log("b()");
-        console.log(error);
-    }
-}
+// let foo = user.say.bind(user, 'bind')
 
-b()
+// user = {
+//   say: function () {
+//     console.log('1')
+//   }
+// }
+
+// foo()
+
+let arr = [1, 2, 3, 4]
+
+let newarr = [5, 6, 7]
+
+arr.push.apply(arr, newarr)
+console.log(arr);

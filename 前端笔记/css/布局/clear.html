@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .root{
+      margin: 0 auto;
+      width: 300px;
+      /* height: 300px; */
+      border: 1px solid black;
+    }
+    .item {
+      width: 50px;
+      height: 50px;
+      color: #fff;
+      text-align: center;
+      line-height: 50px;
+      border: 1px solid #fff;
+      background-color: green;
+    }
+    .item:nth-child(2){
+      float: right;
+    }
+    /* 父元素高度没设置  */
+    /* 浮动元素脱离文档流，原先位置会让后面的元素占住 */
+    /* 让浮动的元素后面的元素不会往前移动 */
+    .item:nth-child(3){
+      clear: none; 
+    }
+  </style>
+</head>
+<body>
+  <div class="root">
+    <div class="item">1</div>
+    <div class="item">2</div>
+    <div class="item">3</div>
+  </div>
+</body>
+</html>
