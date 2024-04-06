@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .box {
+      width: 500px;
+      height: 500px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .btn {
+      border: none;
+      padding: 10px;
+      border-radius: 10px;
+      background-color: lightblue;
+    }
+    .btn:active {
+      transform: scale(0.9
+      );
+    }
+    .cssBox {
+      width: 50px;
+      height: 50px;
+      position: absolute;
+      left: 100px;
+      top: 100px;
+      border-radius: 50%;
+      background-color: red;
+      animation: index 5s ease infinite
+    }
+
+    @keyframes index {
+      0% {
+        left: 100px;
+        top: 100px;
+      }
+      25% {
+        left: 200px;
+        top: 100px;
+      }
+      50%{
+        left: 200px;
+        top: 200px;
+      }
+      75% {
+        left: 100px;
+        top: 200px;
+      }
+      100%{
+        left: 100px;
+        top: 100px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <p></p>
+    <button class="btn">click</button>
+    <div class="cssBox"></div>
+  </div>
+  <script src="./index.js"></script>
+  <script>
+    let btn = document.querySelector('.btn')
+    let text = document.querySelector('p')
+    function task(){
+        for (let i = 0; i < 10000; i++) {
+            let obj = {
+              name:'obj'
+            }
+              obj = null
+        }
+    }
+    btn.onclick = (e)=>{
+      let time1 = new Date().getTime()
+      for(let i = 0; i < 10000; i++){
+          runtask(task).then(()=>{
+            let time2 = new Date().getTime()
+            text.innerHTML = `${time2 - time1}ms`
+          })
+      }
+    }
+  </script>
+</body>
+</html>
