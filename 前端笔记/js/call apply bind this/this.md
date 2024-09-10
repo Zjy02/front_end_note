@@ -33,7 +33,7 @@
 
 ## 在构造函数中
 
-<img src="./new构造函数示意图.png" alt="new构造函数示意图" title="图片title" style="width:400px">
+<img src="../new构造函数示意图.png" alt="new构造函数示意图" title="图片title" style="width:400px">
 
 # 箭头函数的 this
 
